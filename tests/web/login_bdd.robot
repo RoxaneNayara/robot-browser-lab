@@ -1,9 +1,12 @@
 language: pt-BR
 
 *** Settings ***
-Documentation     Login no Sauce Demo escrito em BDD (Dado/Quando/Então)
-Resource          ../../resources/steps/login_steps.resource
-Test Teardown     Fechar o navegador
+Documentation    Login no Sauce Demo escrito em BDD (Dado/Quando/Então)
+
+Resource         ../../resources/steps/login_steps.resource
+
+Test Teardown    Fechar o navegador
+
 
 *** Test Cases ***
 Cenário: Login com usuário válido

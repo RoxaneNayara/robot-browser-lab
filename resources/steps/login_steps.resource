@@ -1,9 +1,11 @@
 *** Settings ***
-Documentation     Passos em linguagem de negócio (BDD) para o login
-Resource          ../base.resource
-Resource          ../data/usuarios.resource
-Resource          ../pages/login_page.resource
-Resource          ../pages/products_page.resource
+Documentation    Passos em linguagem de negócio (BDD) para o login
+
+Resource         ../base.resource
+Resource         ../data/usuarios.resource
+Resource         ../pages/login_page.resource
+Resource         ../pages/products_page.resource
+
 
 *** Keywords ***
 que estou na página de login

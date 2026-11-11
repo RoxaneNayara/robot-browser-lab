@@ -1,22 +1,25 @@
 *** Settings ***
-Documentation     Service Object da API ServeRest (usuários e login)
-Library           RequestsLibrary
-Library           String
+Documentation    Service Object da API ServeRest (usuários e login)
+
+Library          RequestsLibrary
+Library          String
+
 
 *** Variables ***
 ${API_URL}    https://serverest.dev
+
 
 *** Keywords ***
 Criar sessão na ServeRest
     Create Session    serverest    ${API_URL}    verify=True
 
 Gerar usuário aleatório
-    ${sufixo}=     Generate Random String    8    [LOWER]
+    ${sufixo}=    Generate Random String    8    [LOWER]
     ${usuario}=    Create Dictionary
-    ...            nome=QA Robot ${sufixo}
-    ...            email=qa.${sufixo}@teste.com
-    ...            password=senha123
-    ...            administrador=true
+    ...    nome=QA Robot ${sufixo}
+    ...    email=qa.${sufixo}@teste.com
+    ...    password=senha123
+    ...    administrador=true
     RETURN    ${usuario}
 
 Cadastrar usuário
@@ -29,7 +32,7 @@ Cadastrar usuário
 
 Fazer login na API
     [Arguments]    ${email}    ${senha}    ${status_esperado}=200
-    ${corpo}=       Create Dictionary    email=${email}    password=${senha}
+    ${corpo}=    Create Dictionary    email=${email}    password=${senha}
     ${resposta}=    POST On Session    serverest    /login    json=${corpo}    expected_status=${status_esperado}
     RETURN    ${resposta}
 
