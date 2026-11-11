@@ -8,7 +8,7 @@ ${API_URL}    https://serverest.dev
 
 *** Keywords ***
 Criar sessão na ServeRest
-    Create Session    serverest    ${API_URL}
+    Create Session    serverest    ${API_URL}    verify=True
 
 Gerar usuário aleatório
     ${sufixo}=     Generate Random String    8    [LOWER]
