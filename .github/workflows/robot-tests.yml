@@ -8,9 +8,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  tests:
+  lint:
+    name: Gate 1 - Lint (Robocop)
     runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v5
 
+      - name: Configurar Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Analisar código dos testes
+        run: robocop check --threshold W .
+
+  smoke:
+    name: Gate 2 - Smoke
+    needs: lint
+    runs-on: ubuntu-latest
     steps:
       - name: Baixar o código
         uses: actions/checkout@v5
@@ -32,12 +52,47 @@ jobs:
       - name: Instalar o navegador da Browser Library
         run: rfbrowser init --with-deps chromium
 
-      - name: Executar os testes
-        run: robot -d results -v HEADLESS:True tests
+      - name: Executar testes smoke
+        run: robot -d results -v HEADLESS:True -i smoke tests
 
       - name: Publicar relatórios
         if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: relatorios-robot
+          name: relatorios-smoke
+          path: results/
+
+  regressao:
+    name: Regressão
+    needs: smoke
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v5
+
+      - name: Configurar Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Instalar o navegador da Browser Library
+        run: rfbrowser init --with-deps chromium
+
+      - name: Executar regressão
+        run: robot -d results -v HEADLESS:True -e smoke tests
+
+      - name: Publicar relatórios
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: relatorios-regressao
           path: results/
