@@ -18,3 +18,6 @@ Fazer login com
 Validar mensagem de erro
     [Arguments]    ${mensagem_esperada}
     Get Text    ${MENSAGEM_ERRO}    contains    ${mensagem_esperada}
+
+Validar que continua na tela de login
+    Wait For Elements State    ${BOTAO_LOGIN}    visible

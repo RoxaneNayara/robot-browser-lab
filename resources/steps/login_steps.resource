@@ -18,8 +18,5 @@ devo ver a página de produtos
 devo ver a mensagem de erro "${mensagem}"
     Validar mensagem de erro    ${mensagem}
 
-Validar que continua na tela de login
-    Wait For Elements State    ${BOTAO_LOGIN}    visible
-
 continuo na tela de login
     Validar que continua na tela de login
