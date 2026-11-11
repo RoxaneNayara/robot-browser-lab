@@ -9,19 +9,24 @@ Resource         ../../resources/pages/products_page.resource
 Test Setup       Abrir o navegador na página inicial
 Test Teardown    Fechar o navegador
 
+Test Tags        login
+
 
 *** Test Cases ***
 Login com usuário válido
-    [Tags]    smoke    login
+    [Documentation]    Usuário padrão acessa a página de produtos.
+    [Tags]    smoke
     Fazer login com    ${USUARIO_VALIDO}    ${SENHA_VALIDA}
     Validar que está na página de produtos
 
 Login com senha inválida
-    [Tags]    login    negativo
+    [Documentation]    Senha incorreta exibe mensagem de erro.
+    [Tags]    negativo
     Fazer login com    ${USUARIO_VALIDO}    ${SENHA_INVALIDA}
     Validar mensagem de erro    Username and password do not match
 
 Login com usuário bloqueado
-    [Tags]    login    negativo
+    [Documentation]    Usuário bloqueado não consegue acessar o sistema.
+    [Tags]    negativo
     Fazer login com    ${USUARIO_BLOQUEADO}    ${SENHA_VALIDA}
     Validar mensagem de erro    Sorry, this user has been locked out.

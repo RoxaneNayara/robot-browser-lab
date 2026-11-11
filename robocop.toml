@@ -2,4 +2,5 @@
 ignore = [
     "NAME02",  # keywords em frases em português, no estilo BDD (decisão de projeto)
     "NAME18",  # idem, para as chamadas das keywords
+    "VAR06",   # ID_USUARIO precisa de escopo de teste para a limpeza no teardown
 ]
