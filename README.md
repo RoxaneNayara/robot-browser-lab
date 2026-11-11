@@ -47,6 +47,8 @@ Os cenários web existem em dois estilos: palavras-chave diretas e **BDD em port
 - **Massa de dados dinâmica:** cada teste de API gera um usuário único e o exclui no teardown, sem sujar o ambiente
 - **Tags** para execução seletiva (`smoke`, `negativo`, `bdd`, `api`)
 - **CI com GitHub Actions** a cada push e PR, com relatórios publicados mesmo em caso de falha
+- **Pipeline com gates progressivos:** lint com Robocop → smoke → regressão. Se um estágio falha, os seguintes não rodam
+- **Lint com Robocop:** código de teste padronizado, com regras desligadas apenas por decisão documentada (`robocop.toml`)
 
 ## Como executar
 
